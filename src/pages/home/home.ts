@@ -18,7 +18,7 @@ export class HomePage {
   getData() {
     this.restProvider.getData()
     .then(data => {
-      //debugger;
+      debugger
       this.data = data;
     });
   }
