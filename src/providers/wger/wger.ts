@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {Observable} from "rxjs/Observable"
 
 /*
   Generated class for the WgerProvider provider.
@@ -9,7 +10,6 @@ import { Injectable } from '@angular/core';
 */
 @Injectable()
 export class WgerProvider {
-  
 
   apiUrl = 'https://wger.de/api/v2/';
   token = 'c9790d783821eb9c4c7695ae57d088224a453d7c';
@@ -18,22 +18,22 @@ export class WgerProvider {
     console.log('Hello WgerProvider Provider');
   }
 
-  getData() {
+  getData():Observable<Iexercise> {
 
     const headers = new HttpHeaders().set('Authorization', 'Token ' + this.token);
 
-    return new Promise(resolve => {
-      this.http.get(this.apiUrl+'/exercise', {headers}).subscribe(data => {
-        resolve(data);
-      }, err => {
-        console.log(err);
-      });
-    });
-  }
-  
-  
+    return this.http.get<Iexercise>(this.apiUrl+'/exercise', {headers});   
 
+    // return new Promise(resolve => {
+    //   this.http.get(this.apiUrl+'/exercise', {headers}).subscribe(data => {
+    //     resolve(data);
+    //   }, err => {
+    //     console.log(err);
+    //   });
+    // });
+  }
 }
+
 export interface Iwger {
   workout: string;
   workoutsession: string;
