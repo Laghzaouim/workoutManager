@@ -12,6 +12,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { WgerProvider } from '../providers/wger/wger';
 import { HttpClientModule } from '@angular/common/http';
+import { ExercisesPage } from '../pages/exercises/exercises';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { HttpClientModule } from '@angular/common/http';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    ExercisesPage
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,8 @@ import { HttpClientModule } from '@angular/common/http';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    ExercisesPage
   ],
   providers: [
     StatusBar,

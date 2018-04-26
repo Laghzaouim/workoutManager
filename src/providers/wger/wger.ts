@@ -13,16 +13,24 @@ export class WgerProvider {
 
   apiUrl = 'https://wger.de/api/v2/';
   token = 'c9790d783821eb9c4c7695ae57d088224a453d7c';
-
+  
   constructor(public http: HttpClient) {
     console.log('Hello WgerProvider Provider');
   }
 
-  getData():Observable<Iexercise> {
+  getexerciseCategory():Observable<IexerciseCategory> {
 
     const headers = new HttpHeaders().set('Authorization', 'Token ' + this.token);
 
-    return this.http.get<Iexercise>(this.apiUrl+'/exercise', {headers});   
+    return this.http.get<IexerciseCategory>(this.apiUrl + "exercisecategory", {headers});   
+
+  }
+
+  getExercises():Observable<Iexercise> {
+
+    const headers = new HttpHeaders().set('Authorization', 'Token ' + this.token);
+
+    return this.http.get<Iexercise>(this.apiUrl + "exercise", {headers});   
 
   }
 }
@@ -45,7 +53,7 @@ export interface Iwger {
   exerciseinfo: string;
   exercise: Iexercise;
   equipment: string;
-  exercisecategory: string;
+  exercisecategory: IexerciseCategory;
   exerciseimage: string;
   exercisecomment: string;
   muscle: string;
@@ -57,6 +65,8 @@ export interface Iwger {
   mealitem: string;
   weightentry: string;
 }
+
+//Exercise
 export interface IexerciseIn {
   id: number;
   license_author: string;
@@ -79,4 +89,17 @@ export interface Iexercise {
   next: string;
   previous?: any;
   results: IexerciseIn[];
+}
+
+//Exercise category
+export interface IexerciseCategoryIn {
+  id: number;
+  name: string;
+}
+
+export interface IexerciseCategory {
+  count: number;
+  next?: any;
+  previous?: any;
+  results: IexerciseCategoryIn[];
 }
