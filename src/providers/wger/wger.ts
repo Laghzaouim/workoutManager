@@ -24,13 +24,6 @@ export class WgerProvider {
 
     return this.http.get<Iexercise>(this.apiUrl+'/exercise', {headers});   
 
-    // return new Promise(resolve => {
-    //   this.http.get(this.apiUrl+'/exercise', {headers}).subscribe(data => {
-    //     resolve(data);
-    //   }, err => {
-    //     console.log(err);
-    //   });
-    // });
   }
 }
 
