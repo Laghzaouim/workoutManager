@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import {WgerProvider, Iexercise, Iwger} from '../../providers/wger/wger'
+import {WgerProvider, IexerciseCategory} from '../../providers/wger/wger'
 
 @Component({
   selector: 'page-home',
@@ -8,7 +8,7 @@ import {WgerProvider, Iexercise, Iwger} from '../../providers/wger/wger'
 })
 export class HomePage {
   
-  data: Iexercise;
+  data: IexerciseCategory;
 
   constructor(public navCtrl: NavController, public restProvider: WgerProvider) {
     //debugger;
@@ -16,10 +16,15 @@ export class HomePage {
   }
 
   getData() {
-    this.restProvider.getData().subscribe(result =>{
+    this.restProvider.getexerciseCategory().subscribe(result =>{
       //debugger
       this.data = result})
   }
+
+   itemSelected(item){
+     console.log(item);
+    
+   }
   
 
 }
