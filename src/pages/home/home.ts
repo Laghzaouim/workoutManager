@@ -4,6 +4,7 @@ import { IexerciseCategory, WgerProvider} from '../../providers/wger/wger'
 import { ExercisesPage } from '../exercises/exercises';
 
 
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -28,6 +29,7 @@ export class HomePage {
       this.navCtrl.push(ExercisesPage,{
         id_category
     })
+
     
    }
   
