@@ -40,9 +40,8 @@ export class ExercisesPage implements OnInit {
 
   getExercises(link:string) {
     this.restProvider.getExercises(link).subscribe(result =>{
-      //debugger
-      this.data = result})
-      
+      this.data = result
+    })
   }
 
  

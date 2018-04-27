@@ -16,8 +16,11 @@
 <ion-content padding>
  
     <ion-list *ngIf="data">
-        <button ion-item *ngFor="let Data of data.results">
+        <span *ngFor="let Data of data.results">
+        <button ion-item  *ngIf="Data.category == id_category">
+          
             {{Data.name}}
-        </button>  
+          </button>  
+        </span>
       </ion-list>
     </ion-content>
