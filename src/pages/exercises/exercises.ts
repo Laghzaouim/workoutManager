@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Iexercise, WgerProvider } from '../../providers/wger/wger';
 
@@ -15,20 +15,31 @@ import { Iexercise, WgerProvider } from '../../providers/wger/wger';
   selector: 'page-exercises',
   templateUrl: 'exercises.html',
 })
-export class ExercisesPage {
+export class ExercisesPage implements OnInit {
 
+  
   id_category: number
   data:Iexercise
-  hypermediaExercises: string
+  
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: WgerProvider) {
-    this.id_category = navParams.get('id')
-    console.log(this.id_category)
-    this.getData()
+  constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: WgerProvider) {}
+
+  ngOnInit(): void {
+    let hypermediaExercises: string
+
+    this.id_category = this.navParams.get('id_category')
+
+    this.restProvider.getMainContent().subscribe(result =>{
+      //debugger
+      hypermediaExercises = result.exercise
+
+      this.getExercises(hypermediaExercises);
+     }, err => console.log(err))
+
   }
 
-  getData() {
-    this.restProvider.getExercises(this.hypermediaExercises).subscribe(result =>{
+  getExercises(link:string) {
+    this.restProvider.getExercises(link).subscribe(result =>{
       //debugger
       this.data = result})
       
