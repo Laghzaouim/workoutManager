@@ -16,21 +16,30 @@ export class WgerProvider {
   
   constructor(public http: HttpClient) {
     console.log('Hello WgerProvider Provider');
+    
   }
 
-  getexerciseCategory():Observable<IexerciseCategory> {
+  getMainContent():Observable<Iwger>{
 
     const headers = new HttpHeaders().set('Authorization', 'Token ' + this.token);
 
-    return this.http.get<IexerciseCategory>(this.apiUrl + "exercisecategory", {headers});   
+    return this.http.get<Iwger>(this.apiUrl, {headers});
 
   }
 
-  getExercises():Observable<Iexercise> {
+  getexerciseCategory(hypermedia: string):Observable<IexerciseCategory> {
 
     const headers = new HttpHeaders().set('Authorization', 'Token ' + this.token);
 
-    return this.http.get<Iexercise>(this.apiUrl + "exercise", {headers});   
+    return this.http.get<IexerciseCategory>(hypermedia, {headers});   
+
+  }
+
+  getExercises(hypermedia: string):Observable<Iexercise> {
+
+    const headers = new HttpHeaders().set('Authorization', 'Token ' + this.token);
+
+    return this.http.get<Iexercise>(hypermedia , {headers});   
 
   }
 }
@@ -51,9 +60,9 @@ export interface Iwger {
   setting_repetitionunit: string;
   setting_weightunit: string;
   exerciseinfo: string;
-  exercise: Iexercise;
+  exercise: string;
   equipment: string;
-  exercisecategory: IexerciseCategory;
+  exercisecategory: string;
   exerciseimage: string;
   exercisecomment: string;
   muscle: string;

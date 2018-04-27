@@ -19,6 +19,7 @@ export class ExercisesPage {
 
   id_category: number
   data:Iexercise
+  hypermediaExercises: string
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: WgerProvider) {
     this.id_category = navParams.get('id')
@@ -27,7 +28,7 @@ export class ExercisesPage {
   }
 
   getData() {
-    this.restProvider.getExercises().subscribe(result =>{
+    this.restProvider.getExercises(this.hypermediaExercises).subscribe(result =>{
       //debugger
       this.data = result})
       

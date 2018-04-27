@@ -6,9 +6,9 @@
 
 <ion-content padding>
  
-<ion-list *ngIf="data">
-    <button ion-item *ngFor="let Data of data.results" (click)="itemSelected(Data.id)">
-        {{Data.name}}
+<ion-list *ngIf="categorys">
+    <button ion-item *ngFor="let category of categorys.results" (click)="itemSelected(category.id)">
+        {{category.name}}
     </button>  
   </ion-list>
 </ion-content>

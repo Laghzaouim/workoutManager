@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { IexerciseCategory, WgerProvider} from '../../providers/wger/wger'
 import { ExercisesPage } from '../exercises/exercises';
@@ -9,29 +9,32 @@ import { ExercisesPage } from '../exercises/exercises';
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage {
+export class HomePage implements OnInit {
   
-  data: IexerciseCategory;
 
-  constructor(public navCtrl: NavController, public restProvider: WgerProvider) {
+  //hypermediaCategorys: string;
+  categorys: IexerciseCategory;
+
+  constructor(public navCtrl: NavController, public restProvider: WgerProvider) {}
+
+  ngOnInit(): void {
     //debugger;
-    this.getData();
-  }
+    let hypermediaCategorys: string;
+    this.restProvider.getMainContent().subscribe(result =>{
+     //debugger
+     hypermediaCategorys = result.exercisecategory
+     this.getCategorys(hypermediaCategorys);
+    }, err => console.log(err))
+ }
 
-  getData() {
-    this.restProvider.getexerciseCategory().subscribe(result =>{
-      //debugger
-      this.data = result})
-      
+  getCategorys(link: string) {
+    this.restProvider.getexerciseCategory(link).subscribe(result =>{
+      this.categorys = result})
   }
 
    itemSelected(id_category:number){
       this.navCtrl.push(ExercisesPage,{
         id_category
     })
-
-    
    }
-  
-
 }
