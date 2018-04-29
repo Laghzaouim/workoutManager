@@ -19,11 +19,8 @@ export class ExercisesPage implements OnInit {
   
   id_category: number
   data:Iexercise
-  test: string
-  arr:string[]
   nameExercises: string[]
   
-
   constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: WgerProvider) {}
 
   ngOnInit(): void {
@@ -43,28 +40,51 @@ export class ExercisesPage implements OnInit {
   getExercises(link:string) {
     //debugger
     var name = new Array()
-      let nextPage: string
-      this.restProvider.getExercises(link).subscribe(result =>{
+    let nextPage: string
+
+    console.log(this.id_category)
+
+    this.getData(link, name, nextPage);
+  }
+
+  private getData(link: string, name: any[], nextPage: string) {
+    this.restProvider.getExercises(link).subscribe(result => {
+      this.data = result;
+      //debugger
+      nextPage = this.getFirstPage(result, name, nextPage);
+
+      nextPage = this.getNextPage(nextPage, name);
+    });
+  }
+
+  private getFirstPage(result: Iexercise, name: any[], nextPage: string) {
+    //debugger
+    for (let i in result.results) {
+      if (result.results[i].category == this.id_category
+        && result.results[i].name != '') {
         //debugger
-        for(let i in result.results){
-          if(result.results[i].category == this.id_category 
-            && result.results[i].name != ''){
-              //debugger
-              this.data = result
-          name.push(result.results[i].name)
-          nextPage = result.next;
-          if(nextPage != null){
-            //debugger
-              this.restProvider.getExercises(nextPage).subscribe(results =>{
-              nextPage = results.next
-              name.push(results.results[i].name)
-              //console.log(name)
-              //debugger
-              this.nameExercises = name
-            })
+        name.push(result.results[i].name);
+      }
+      nextPage = result.next;
+    }
+    return nextPage;
+  }
+  
+  private getNextPage(nextPage: string, name: any[]) {
+    if (nextPage != null) {
+      //debugger
+      this.restProvider.getExercises(nextPage).subscribe(results => {
+        for (let j in results.results) {
+          if (results.results[j].category == this.id_category
+            && results.results[j].name != '') {
+            name.push(results.results[j].name);
           }
         }
-      }
-    })
+        nextPage = results.next;
+        this.nameExercises = name;
+      });
+    }
+    return nextPage;
   }
+
 }
