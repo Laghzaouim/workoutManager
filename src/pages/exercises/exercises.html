@@ -14,9 +14,9 @@
 
 <ion-content padding>
     <ion-list *ngIf="data">
-        <span *ngFor="let Data of data.results">
-        <button ion-item  *ngIf="Data.category == id_category && Data.name !== '' ">
-            {{Data.name}}
+        <span *ngFor="let name of nameExercises">
+        <button ion-item  >
+            {{name}}
           </button>  
         </span>
       </ion-list>

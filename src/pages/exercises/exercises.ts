@@ -21,6 +21,7 @@ export class ExercisesPage implements OnInit {
   data:Iexercise
   test: string
   arr:string[]
+  nameExercises: string[]
   
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: WgerProvider) {}
@@ -41,23 +42,29 @@ export class ExercisesPage implements OnInit {
 
   getExercises(link:string) {
     //debugger
-    
+    var name = new Array()
       let nextPage: string
       this.restProvider.getExercises(link).subscribe(result =>{
         //debugger
-        this.data = result
-        nextPage = result.next;
-        if(nextPage != null){
-          //debugger
-          this.restProvider.getExercises(nextPage).subscribe(results =>{
-            nextPage = results.next
-            this.data = results
+        for(let i in result.results){
+          if(result.results[i].category == this.id_category 
+            && result.results[i].name != ''){
+              //debugger
+              this.data = result
+          name.push(result.results[i].name)
+          nextPage = result.next;
+          if(nextPage != null){
             //debugger
-          })
+              this.restProvider.getExercises(nextPage).subscribe(results =>{
+              nextPage = results.next
+              name.push(results.results[i].name)
+              //console.log(name)
+              //debugger
+              this.nameExercises = name
+            })
+          }
         }
-
+      }
     })
-}
-
- 
+  }
 }
