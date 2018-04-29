@@ -15,13 +15,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ExerciseDetailsPage implements OnInit {
 
-  id_exercises = null
+  id_exercises
+  name_exercises
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
   
   ngOnInit(): void {
     this.id_exercises = this.navParams.get('id_ex')
+    this.name_exercises = this.navParams.get('name')
     console.log(this.id_exercises)
+    console.log(this.name_exercises)
   }
 
 

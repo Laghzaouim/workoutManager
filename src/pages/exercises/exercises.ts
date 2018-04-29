@@ -93,12 +93,12 @@ export class ExercisesPage implements OnInit {
     if( i ==  index ) {
        console.log(this.id_exercises[i]);
        id_ex = this.id_exercises[i]
-       
       }
     }
 
     this.navCtrl.push(ExerciseDetailsPage,{
-      id_ex
+      id_ex,
+      name
     })
 
     console.log(name)

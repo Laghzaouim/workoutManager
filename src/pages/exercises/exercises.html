@@ -16,15 +16,12 @@
 
     <ion-list no-lines *ngIf="data">
         <ion-item *ngFor="let name of nameExercises" (click)="itemSelected(name)">
-          <ion-avatar item-start>
-            <img src="http://www.cursus-fotografie.nl/userfiles/images/fotoproducten/aluminiumfoto_sample_oog.jpg">
-          </ion-avatar>
-          <span  >
-
+            <ion-thumbnail item-start >
+                <img src="https://wger.de/media/exercise-images/88/Narrow-grip-bench-press-2.png">
+            </ion-thumbnail>
             <button ion-item >
               {{name}}
             </button>    
-          </span>
         </ion-item>
       </ion-list>
   </ion-content>
