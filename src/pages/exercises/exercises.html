@@ -15,13 +15,16 @@
 <ion-content padding>
 
     <ion-list no-lines *ngIf="data">
-        <ion-item *ngFor="let name of nameExercises">
+        <ion-item *ngFor="let name of nameExercises" (click)="itemSelected(name)">
           <ion-avatar item-start>
             <img src="http://www.cursus-fotografie.nl/userfiles/images/fotoproducten/aluminiumfoto_sample_oog.jpg">
           </ion-avatar>
-          <button ion-item>
-            {{name}}
-          </button>    
+          <span  >
+
+            <button ion-item >
+              {{name}}
+            </button>    
+          </span>
         </ion-item>
       </ion-list>
   </ion-content>

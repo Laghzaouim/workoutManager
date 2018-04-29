@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Iexercise, WgerProvider } from '../../providers/wger/wger';
+import { ExerciseDetailsPage } from '../exercise-details/exercise-details';
 
 /**
  * Generated class for the ExercisesPage page.
@@ -20,6 +21,7 @@ export class ExercisesPage implements OnInit {
   id_category: number
   data:Iexercise
   nameExercises: string[]
+  id_exercises: string[]
   
   constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: WgerProvider) {}
 
@@ -39,58 +41,67 @@ export class ExercisesPage implements OnInit {
 
   getExercises(link:string) {
     //debugger
-    var name = new Array()
-    let nextPage: string
+    var _name = new Array()
+    var _id = new Array()
+
 
     console.log(this.id_category)
 
-    this.getData(link, name, nextPage);
+    this.getData(link, _name, _id);
   }
 
-  private getData(link: string, name: any[], nextPage: string) {
-    for (var i = 1; i < 26; i++){
+  private getData(link: string, name: any[], id: any[]) {
+    for (var i = 1; i < 27; i++){
 
       this.restProvider.getExercises(link+"/?page=" + i).subscribe(result => {
-        this.data = result;
+        
         //debugger
-        this.getPages(result, name, nextPage);
+        this.getPages(result, name, id);
         
         this.nameExercises = name;
-        console.log(this.nameExercises)
+        this.id_exercises = id;
+
+        //console.log(this.nameExercises)
+        //console.log(this.id_exercises)
   
       });
     }
   }
 
-  private getPages(result: Iexercise, name: any[], nextPage: string) {
+  private getPages(result: Iexercise, name: any[], id: any[]) {
     //debugger
     for (let i in result.results) {
       if (result.results[i].category == this.id_category
         && result.results[i].name != '') {
         //debugger
+        this.data = result;
         name.push(result.results[i].name);
+        id.push(result.results[i].id)
       }
       //nextPage = result.next;
     }
     //return nextPage;
-    
   }
-  
-  // private getNextPage(nextPage: string, name: any[]) {
-  //   if (nextPage != null) {
-  //     //debugger
-  //     this.restProvider.getExercises(nextPage).subscribe(results => {
-  //       for (let j in results.results) {
-  //         if (results.results[j].category == this.id_category
-  //           && results.results[j].name != '') {
-  //           name.push(results.results[j].name);
-  //         }
-  //       }
-  //       nextPage = results.next;
-  //       this.nameExercises = name;
-  //     });
-  //   }
-  //   return nextPage;
-  // }
 
+  itemSelected(name:any){
+
+    let index:number = this.nameExercises.findIndex(y => Object.is(name, y));
+    let id_ex
+
+   // if(this.id_exercises.indexOf(index) == index)
+   for(var i=0; i< this.id_exercises.length; i++) {
+    if( i ==  index ) {
+       console.log(this.id_exercises[i]);
+       id_ex = this.id_exercises[i]
+       
+      }
+    }
+
+    this.navCtrl.push(ExerciseDetailsPage,{
+      id_ex
+    })
+
+    console.log(name)
+    console.log(index)
+  }
 }
