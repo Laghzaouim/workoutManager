@@ -13,13 +13,17 @@
 </ion-header>
 
 <ion-content padding>
-    <ion-list *ngIf="data">
-        <span *ngFor="let name of nameExercises">
+
+    <ion-list no-lines *ngIf="data">
+        <ion-item *ngFor="let name of nameExercises">
+          <ion-avatar item-start>
+            <img src="http://www.cursus-fotografie.nl/userfiles/images/fotoproducten/aluminiumfoto_sample_oog.jpg">
+          </ion-avatar>
           <button ion-item>
             {{name}}
-          </button>  
-        </span>
-    </ion-list>
+          </button>    
+        </ion-item>
+      </ion-list>
   </ion-content>
 
 

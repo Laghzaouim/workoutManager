@@ -56,6 +56,7 @@ export class ExercisesPage implements OnInit {
         this.getPages(result, name, nextPage);
         
         this.nameExercises = name;
+        console.log(this.nameExercises)
   
       });
     }
