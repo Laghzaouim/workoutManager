@@ -12,13 +12,10 @@
 
 </ion-header>
 
-
 <ion-content padding>
- 
     <ion-list *ngIf="data">
         <span *ngFor="let Data of data.results">
         <button ion-item  *ngIf="Data.category == id_category && Data.name !== '' ">
-          
             {{Data.name}}
           </button>  
         </span>

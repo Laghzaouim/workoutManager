@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Iexercise, WgerProvider } from '../../providers/wger/wger';
 
-
 /**
  * Generated class for the ExercisesPage page.
  *
@@ -20,6 +19,8 @@ export class ExercisesPage implements OnInit {
   
   id_category: number
   data:Iexercise
+  test: string
+  arr:string[]
   
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: WgerProvider) {}
@@ -32,17 +33,31 @@ export class ExercisesPage implements OnInit {
     this.restProvider.getMainContent().subscribe(result =>{
       //debugger
       hypermediaExercises = result.exercise
-
       this.getExercises(hypermediaExercises);
+
      }, err => console.log(err))
 
   }
 
   getExercises(link:string) {
-    this.restProvider.getExercises(link).subscribe(result =>{
-      this.data = result
+    //debugger
+    
+      let nextPage: string
+      this.restProvider.getExercises(link).subscribe(result =>{
+        //debugger
+        this.data = result
+        nextPage = result.next;
+        if(nextPage != null){
+          //debugger
+          this.restProvider.getExercises(nextPage).subscribe(results =>{
+            nextPage = results.next
+            this.data = results
+            //debugger
+          })
+        }
+
     })
-  }
+}
 
  
 }
