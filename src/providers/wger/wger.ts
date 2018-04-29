@@ -42,6 +42,15 @@ export class WgerProvider {
     return this.http.get<Iexercise>(hypermedia , {headers});   
 
   }
+
+  getExercisesImege(hypermedia: string):Observable<IExerciseImage> {
+
+    const headers = new HttpHeaders().set('Authorization', 'Token ' + this.token);
+
+    return this.http.get<IExerciseImage>(hypermedia , {headers});   
+
+  }
+
 }
 
 export interface Iwger {
@@ -111,4 +120,21 @@ export interface IexerciseCategory {
   next?: any;
   previous?: any;
   results: IexerciseCategoryIn[];
+}
+//Exercise image
+export interface IExerciseImegeIn {
+  id: number;
+  license_author: string;
+  status: string;
+  image: string;
+  is_main: boolean;
+  license: number;
+  exercise: number;
+}
+
+export interface IExerciseImage {
+  count: number;
+  next: string;
+  previous?: any;
+  results: IExerciseImegeIn[];
 }

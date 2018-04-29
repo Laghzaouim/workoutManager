@@ -32,9 +32,11 @@ export class HomePage implements OnInit {
       this.categorys = result})
   }
 
-   itemSelected(id_category:number){
+   itemSelected(id_category:number, name_category: any){
       this.navCtrl.push(ExercisesPage,{
-        id_category
+        id_category,
+        name_category
     })
+
    }
 }
