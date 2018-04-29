@@ -48,16 +48,20 @@ export class ExercisesPage implements OnInit {
   }
 
   private getData(link: string, name: any[], nextPage: string) {
-    this.restProvider.getExercises(link).subscribe(result => {
-      this.data = result;
-      //debugger
-      nextPage = this.getFirstPage(result, name, nextPage);
+    for (var i = 1; i < 26; i++){
 
-      nextPage = this.getNextPage(nextPage, name);
-    });
+      this.restProvider.getExercises(link+"/?page=" + i).subscribe(result => {
+        this.data = result;
+        //debugger
+        this.getPages(result, name, nextPage);
+        
+        this.nameExercises = name;
+  
+      });
+    }
   }
 
-  private getFirstPage(result: Iexercise, name: any[], nextPage: string) {
+  private getPages(result: Iexercise, name: any[], nextPage: string) {
     //debugger
     for (let i in result.results) {
       if (result.results[i].category == this.id_category
@@ -65,26 +69,27 @@ export class ExercisesPage implements OnInit {
         //debugger
         name.push(result.results[i].name);
       }
-      nextPage = result.next;
+      //nextPage = result.next;
     }
-    return nextPage;
+    //return nextPage;
+    
   }
   
-  private getNextPage(nextPage: string, name: any[]) {
-    if (nextPage != null) {
-      //debugger
-      this.restProvider.getExercises(nextPage).subscribe(results => {
-        for (let j in results.results) {
-          if (results.results[j].category == this.id_category
-            && results.results[j].name != '') {
-            name.push(results.results[j].name);
-          }
-        }
-        nextPage = results.next;
-        this.nameExercises = name;
-      });
-    }
-    return nextPage;
-  }
+  // private getNextPage(nextPage: string, name: any[]) {
+  //   if (nextPage != null) {
+  //     //debugger
+  //     this.restProvider.getExercises(nextPage).subscribe(results => {
+  //       for (let j in results.results) {
+  //         if (results.results[j].category == this.id_category
+  //           && results.results[j].name != '') {
+  //           name.push(results.results[j].name);
+  //         }
+  //       }
+  //       nextPage = results.next;
+  //       this.nameExercises = name;
+  //     });
+  //   }
+  //   return nextPage;
+  // }
 
 }
