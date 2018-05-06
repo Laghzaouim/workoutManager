@@ -3,13 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Iexercise, WgerProvider, IExerciseImage } from '../../providers/wger/wger';
 import { ExerciseDetailsPage } from '../exercise-details/exercise-details';
 
-/**
- * Generated class for the ExercisesPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-exercises',
@@ -41,37 +34,37 @@ export class ExercisesPage implements OnInit {
       hypermediaExercises = result.exercise
       hypermediaExercisesImage = result.exerciseimage
       this.getExercises(hypermediaExercises);
-      this.getExercisesImage(hypermediaExercisesImage)
+      // this.getExercisesImage(hypermediaExercisesImage)
 
      }, err => console.log(err))
 
   }
-  getExercisesImage(link: string){
+//   getExercisesImage(link: string){
 
-    var _nameImage = new Array()
+//     var _nameImage = new Array()
 
-    for (var i = 1; i < 11; i++){
-    this.restProvider.getExercisesImege(link+"/?page=" + i).subscribe(result =>{
+//     for (var i = 1; i < 11; i++){
+//     this.restProvider.getExercisesImege(link+"/?page=" + i).subscribe(result =>{
 
-      for (let i in result.results) {
-        if (this.id_exercises.indexOf(result.results[i].exercise)>-1){
+//       for (let i in result.results) {
+//         if (this.id_exercises.indexOf(result.results[i].exercise)>-1){
           
-           _nameImage.push(result.results[i].image)
-          //console.log(_nameImage)
+//            _nameImage.push(result.results[i].image)
+//           //console.log(_nameImage)
           
-        }
-      }
+//         }
+//       }
       
-    })
-  }
-}
+//     })
+//   }
+// }
 
   getExercises(link:string) {
     //debugger
     var _name = new Array()
     var _id = new Array()
 
-    console.log(this.id_category)
+    //console.log(this.id_category)
 
     this.getExerciseData(link, _name, _id);
   }
