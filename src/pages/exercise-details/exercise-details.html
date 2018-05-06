@@ -17,8 +17,22 @@
 
     <ion-card >
         <ion-card-content style="display: block">
-          <p>{{description}}</p>
-          <p>{{creationDate}}</p>
+
+         
+
+          <h1 *ngIf="description">Description</h1>
+          <div [innerHTML]="description"></div>
+
+          <h1 *ngIf="musclesName">Muscles</h1>
+          <p>{{musclesName}}</p>
+
+          <h1 *ngIf="equipmentName" >Equipment</h1>
+          <p>{{equipmentName}}</p>
+
+
+  
+          <p *ngIf="creationDate">{{creationDate}}</p>
+
         </ion-card-content>
       </ion-card>
 </ion-content>

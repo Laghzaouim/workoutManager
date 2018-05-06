@@ -51,6 +51,23 @@ export class WgerProvider {
 
   }
 
+  getEquipment(hypermedia: string):Observable<IEquipment> {
+
+    const headers = new HttpHeaders().set('Authorization', 'Token ' + this.token);
+
+    return this.http.get<IEquipment>(hypermedia , {headers});   
+
+  }
+
+  getMuscles(hypermedia: string):Observable<IMuscles> {
+
+    const headers = new HttpHeaders().set('Authorization', 'Token ' + this.token);
+
+    return this.http.get<IMuscles>(hypermedia , {headers});   
+
+  }
+
+
 }
 
 export interface Iwger {
@@ -137,4 +154,31 @@ export interface IExerciseImage {
   next: string;
   previous?: any;
   results: IExerciseImegeIn[];
+}
+
+//equipment
+interface IEquipment {
+  count: number;
+  next?: any;
+  previous?: any;
+  results: IEquipmentIn[];
+}
+
+interface IEquipmentIn {
+  id: number;
+  name: string;
+}
+
+//muscles
+interface IMuscles {
+  count: number;
+  next?: any;
+  previous?: any;
+  results: IMusclesIn[];
+}
+
+interface IMusclesIn {
+  id: number;
+  name: string;
+  is_front: boolean;
 }

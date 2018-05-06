@@ -21,6 +21,10 @@ export class ExerciseDetailsPage implements OnInit {
 
   description: string
   creationDate: string
+  equipments: number[]
+  equipmentName: string
+  muscles: number[]
+  musclesName: string
 
   data:Iexercise
 
@@ -28,6 +32,8 @@ export class ExerciseDetailsPage implements OnInit {
   
   ngOnInit(): void {
     let hypermediaExercises: string
+    let hypermediaEquipment: string
+    let hypermediaMuscles
 
     this.id_exercises = this.navParams.get('id_ex')
     this.name_exercises = this.navParams.get('name')
@@ -37,8 +43,15 @@ export class ExerciseDetailsPage implements OnInit {
 
     this.restProvider.getMainContent().subscribe(result =>{
       hypermediaExercises = result.exercise
+      hypermediaEquipment = result.equipment
+      hypermediaMuscles = result.muscle
+
       this.getExercise(hypermediaExercises);
+      this.getEqipment(hypermediaEquipment)
+      this.getMuscles(hypermediaMuscles)
      })
+
+     
   }
 
   private getExercise(link:string){
@@ -51,13 +64,49 @@ export class ExerciseDetailsPage implements OnInit {
           if (result.results[i].id == this.id_exercises) {
             //debugger
             this.description = result.results[i].description;
-            this.creationDate = result.results[i].creation_date;
+            this.creationDate =  "Created: " + result.results[i].creation_date;
+            this.equipments = result.results[i].equipment
+            this.muscles = result.results[i].muscles
 
-            console.log(this.description);
+            console.log("description " + this.description);
             console.log(this.creationDate)
+            console.log("equipments " + this.equipments)
+            console.log("muscles " + this.muscles)
           }
         }
       });
     }
   }
+
+  private getEqipment(link:string){
+
+    this.restProvider.getEquipment(link).subscribe(result =>{
+
+      for (let i in result.results){
+        for(let j in this.equipments){
+        if(result.results[i].id == this.equipments[j]){
+          console.log(result.results[i].name)
+          this.equipmentName = result.results[i].name
+        }
+        }
+      }
+
+    })
+  }
+
+  private getMuscles(link:string){
+     this.restProvider.getMuscles(link).subscribe(result=>{
+       //debugger
+
+       for(let i in result.results){
+         for(let j in this.muscles){
+         if(result.results[i].id == this.muscles[j]){
+           this.musclesName = result.results[i].name
+           console.log(this.musclesName)
+         }
+        }
+       }
+     })
+  }
+
 }
