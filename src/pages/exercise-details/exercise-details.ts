@@ -16,15 +16,16 @@ import { WgerProvider, Iexercise } from '../../providers/wger/wger';
 })
 export class ExerciseDetailsPage implements OnInit {
 
-  id_exercises
+  id_exercise
   name_exercises
 
   description: string
   creationDate: string
   equipments: number[]
-  equipmentName: string
+  equipmentName: string = ""
   muscles: number[]
-  musclesName: string
+  musclesName: string = ""
+  imgURL : string
 
   data:Iexercise
 
@@ -33,22 +34,25 @@ export class ExerciseDetailsPage implements OnInit {
   ngOnInit(): void {
     let hypermediaExercises: string
     let hypermediaEquipment: string
-    let hypermediaMuscles
+    let hypermediaMuscles: string
+    let hypermediaImg: string
 
-    this.id_exercises = this.navParams.get('id_ex')
+    this.id_exercise = this.navParams.get('id_ex')
     this.name_exercises = this.navParams.get('name')
 
-    console.log(this.id_exercises)
+    console.log(this.id_exercise)
     console.log(this.name_exercises)
 
     this.restProvider.getMainContent().subscribe(result =>{
       hypermediaExercises = result.exercise
       hypermediaEquipment = result.equipment
       hypermediaMuscles = result.muscle
+      hypermediaImg = result.exerciseimage
 
       this.getExercise(hypermediaExercises);
       this.getEqipment(hypermediaEquipment)
       this.getMuscles(hypermediaMuscles)
+      this.getImage(hypermediaImg)
      })
 
      
@@ -61,7 +65,7 @@ export class ExerciseDetailsPage implements OnInit {
       this.restProvider.getExercises(link+"/?page=" + i).subscribe(result => {
 
         for (let i in result.results) {
-          if (result.results[i].id == this.id_exercises) {
+          if (result.results[i].id == this.id_exercise) {
             //debugger
             this.description = result.results[i].description;
             this.creationDate =  "Created: " + result.results[i].creation_date;
@@ -86,7 +90,8 @@ export class ExerciseDetailsPage implements OnInit {
         for(let j in this.equipments){
         if(result.results[i].id == this.equipments[j]){
           console.log(result.results[i].name)
-          this.equipmentName = result.results[i].name
+          
+          this.equipmentName += result.results[i].name + " "
         }
         }
       }
@@ -101,12 +106,25 @@ export class ExerciseDetailsPage implements OnInit {
        for(let i in result.results){
          for(let j in this.muscles){
          if(result.results[i].id == this.muscles[j]){
-           this.musclesName = result.results[i].name
+           this.musclesName += result.results[i].name + " "
            console.log(this.musclesName)
          }
         }
        }
      })
+  }
+
+  private getImage(link: string){
+    this.restProvider.getExercisesImege(link).subscribe(result =>{
+      //debugger
+      for(let i in result.results){
+        if(result.results[i].exercise == this.id_exercise){
+          this.imgURL = result.results[i].image
+          console.log("image url: " + this.imgURL)
+        }
+      }
+
+    })
   }
 
 }

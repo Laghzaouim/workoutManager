@@ -18,7 +18,8 @@
     <ion-card >
         <ion-card-content style="display: block">
 
-         
+        
+          <img src="{{imgURL}}">
 
           <h1 *ngIf="description">Description</h1>
           <div [innerHTML]="description"></div>
@@ -31,7 +32,7 @@
 
 
   
-          <p *ngIf="creationDate">{{creationDate}}</p>
+          <h3 *ngIf="creationDate">{{creationDate}}</h3>
 
         </ion-card-content>
       </ion-card>
