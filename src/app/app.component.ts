@@ -7,6 +7,7 @@ import { AuthService } from '../services/auth.service';
 
 //import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
+import { TabsPage } from '../pages/tabs/tabs';
 
 @Component({
   templateUrl: 'app.html'
@@ -26,5 +27,28 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
+
+    this.auth.afAuth.authState
+      .subscribe(
+        user => {
+          if (user) {
+            this.rootPage = TabsPage;
+          } else {
+            this.rootPage = LoginPage;
+          }
+        },
+        () => {
+          this.rootPage = LoginPage;
+        }
+      );
+
   }
+
+  // initializeApp() {
+  // //   this.platform.ready().then(() => {
+  // //     this.statusBar.styleDefault();
+  // //   });
+  
+    
+  // }
 }

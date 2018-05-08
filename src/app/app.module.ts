@@ -23,6 +23,7 @@ import { LoginPage } from '../pages/login/login';
 import { AuthService } from '../services/auth.service';
 import { SignupPageModule } from '../pages/signup/signup.module';
 import { SignupPage } from '../pages/signup/signup';
+import { ProfilePage } from '../pages/profile/profile';
 
 
 
@@ -36,7 +37,8 @@ import { SignupPage } from '../pages/signup/signup';
     ExercisesPage,
     ExerciseDetailsPage,
     LoginPage,
-    SignupPage
+    SignupPage,
+    ProfilePage
   ],
   imports: [
     BrowserModule,
@@ -54,7 +56,8 @@ import { SignupPage } from '../pages/signup/signup';
     ExercisesPage,
     ExerciseDetailsPage,
     LoginPage,
-    SignupPage
+    SignupPage,
+    ProfilePage
   ],
   providers: [
     StatusBar,

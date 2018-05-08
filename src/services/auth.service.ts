@@ -24,6 +24,14 @@ export class AuthService {
             credentials.password);
     }
 
+    get authenticated(): boolean {
+        return this.user !== null;
+    }
+
+    getEmail() {
+        return this.user && this.user.email;
+    }
+
     signInWithGoogle() {
 		console.log('Sign in with google');
         return this.oauthSignIn(new firebase.auth.GoogleAuthProvider());
@@ -49,6 +57,10 @@ export class AuthService {
             });
         }
     }
+
+    signOut(): Promise<void> {
+        return this.afAuth.auth.signOut();
+      }
 
 
 }
