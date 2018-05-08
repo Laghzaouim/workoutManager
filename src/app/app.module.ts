@@ -15,6 +15,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { ExercisesPage } from '../pages/exercises/exercises';
 import { ExerciseDetailsPage } from '../pages/exercise-details/exercise-details';
 
+
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { firebaseConfig } from '../config';
+import { LoginPage } from '../pages/login/login';
+
+
+
 @NgModule({
   declarations: [
     MyApp,
@@ -23,12 +31,14 @@ import { ExerciseDetailsPage } from '../pages/exercise-details/exercise-details'
     HomePage,
     TabsPage,
     ExercisesPage,
-    ExerciseDetailsPage
+    ExerciseDetailsPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig.fire)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -38,13 +48,15 @@ import { ExerciseDetailsPage } from '../pages/exercise-details/exercise-details'
     HomePage,
     TabsPage,
     ExercisesPage,
-    ExerciseDetailsPage
+    ExerciseDetailsPage,
+    LoginPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    WgerProvider
+    WgerProvider,
+    AngularFireAuth
   ]
 })
 export class AppModule {}
