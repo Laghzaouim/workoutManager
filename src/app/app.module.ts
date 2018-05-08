@@ -21,6 +21,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { firebaseConfig } from '../config';
 import { LoginPage } from '../pages/login/login';
 import { AuthService } from '../services/auth.service';
+import { SignupPageModule } from '../pages/signup/signup.module';
+import { SignupPage } from '../pages/signup/signup';
 
 
 
@@ -33,7 +35,8 @@ import { AuthService } from '../services/auth.service';
     TabsPage,
     ExercisesPage,
     ExerciseDetailsPage,
-    LoginPage
+    LoginPage,
+    SignupPage
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,8 @@ import { AuthService } from '../services/auth.service';
     TabsPage,
     ExercisesPage,
     ExerciseDetailsPage,
-    LoginPage
+    LoginPage,
+    SignupPage
   ],
   providers: [
     StatusBar,
