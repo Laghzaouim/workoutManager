@@ -20,6 +20,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { firebaseConfig } from '../config';
 import { LoginPage } from '../pages/login/login';
+import { AuthService } from '../services/auth.service';
 
 
 
@@ -56,6 +57,7 @@ import { LoginPage } from '../pages/login/login';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     WgerProvider,
+    AuthService,
     AngularFireAuth
   ]
 })
