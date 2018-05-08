@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NavController, IonicPage } from 'ionic-angular';
 import { AuthService } from '../../services/auth.service';
-import { HomePage } from '../home/home';
 import { SignupPage } from '../signup/signup';
+import { TabsPage } from '../tabs/tabs';
 
 @IonicPage()
 @Component({
@@ -37,12 +37,20 @@ export class LoginPage {
 		};
 		this.auth.signInWithEmail(credentials)
 			.then(
-				() => this.navCtrl.setRoot(HomePage),
+				() => this.navCtrl.setRoot(TabsPage),
 				error => this.loginError = error.message
 			);
   }
-  
-  loginWithGoogle(){}
-  signup(){}
+  loginWithGoogle() {
+    this.auth.signInWithGoogle()
+      .then(
+        () => this.navCtrl.setRoot(TabsPage),
+        error => console.log(error.message)
+      );
+  }
+
+  signup(){
+    this.navCtrl.push(SignupPage)
+  }
 
 }
