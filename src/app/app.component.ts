@@ -28,27 +28,21 @@ export class MyApp {
       splashScreen.hide();
     });
 
-    this.auth.afAuth.authState
-      .subscribe(
-        user => {
-          if (user) {
-            this.rootPage = TabsPage;
-          } else {
-            this.rootPage = LoginPage;
-          }
-        },
-        () => {
-          this.rootPage = LoginPage;
-        }
-      );
+    this.LoginUserSession();
 
   }
 
-  // initializeApp() {
-  // //   this.platform.ready().then(() => {
-  // //     this.statusBar.styleDefault();
-  // //   });
-  
-    
-  // }
+  private LoginUserSession() {
+    this.auth.afAuth.authState
+      .subscribe(user => {
+        if (user) {
+          this.rootPage = TabsPage;
+        }
+        else {
+          this.rootPage = LoginPage;
+        }
+      }, () => {
+        this.rootPage = LoginPage;
+      });
+  }
 }

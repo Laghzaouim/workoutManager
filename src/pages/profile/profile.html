@@ -13,7 +13,7 @@
 </ion-header>
 
 <ion-content padding>
-  <h3 *ngIf="auth.getEmail()">{{auth.getEmail()}}</h3>
+  <h5 *ngIf="auth.getEmail()">{{auth.getEmail()}}</h5>
   <button ion-button full (click)="logout()" *ngIf="auth.authenticated">Logout</button>
 
 </ion-content>
