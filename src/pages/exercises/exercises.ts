@@ -17,6 +17,7 @@ export class ExercisesPage implements OnInit {
   nameExercises: string[]
   id_exercises: number[]
   name_category: string
+  //exercisesImg : string[]
   
   constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: WgerProvider) {}
 
@@ -33,31 +34,37 @@ export class ExercisesPage implements OnInit {
       //debugger
       hypermediaExercises = result.exercise
       hypermediaExercisesImage = result.exerciseimage
+
       this.getExercises(hypermediaExercises);
-      // this.getExercisesImage(hypermediaExercisesImage)
+      //this.getImage(hypermediaExercisesImage)
 
      }, err => console.log(err))
 
   }
-//   getExercisesImage(link: string){
 
-//     var _nameImage = new Array()
+  // private getImage(link: string){
+  //   var imgUrl = new Array()
+  //   for (var i = 1; i < 11; i++){
+  //   this.restProvider.getExercisesImege(link+"/?page=" + i).subscribe(result =>{
+  //     //debugger
+  //     for(let j in result.results){
+  //       //for (let j in this.id_exercises){
 
-//     for (var i = 1; i < 11; i++){
-//     this.restProvider.getExercisesImege(link+"/?page=" + i).subscribe(result =>{
+  //         if(this.id_exercises.indexOf(result.results[j].exercise) > 0){
+  //           //console.log("image url: " + result.results[j].image)
+  //           imgUrl.push(result.results[j].image)
+  //         }else if(!this.id_exercises.some(x => x === result.results[j].exercise)){
 
-//       for (let i in result.results) {
-//         if (this.id_exercises.indexOf(result.results[i].exercise)>-1){
-          
-//            _nameImage.push(result.results[i].image)
-//           //console.log(_nameImage)
-          
-//         }
-//       }
-      
-//     })
-//   }
-// }
+  //           //imgUrl.push(result.results[j].image)
+  //         }
+  //           //console.log("no image")
+  //      // }
+  //       }
+  //       this.exercisesImg = imgUrl
+  //     console.log("length img: " + imgUrl.length)
+  //   })
+  // }
+  // }
 
   getExercises(link:string) {
     //debugger
@@ -78,7 +85,8 @@ export class ExercisesPage implements OnInit {
         
         this.nameExercises = name;
         this.id_exercises = id;
-  
+        
+        console.log("length exercises: " + this.nameExercises.length)
       });
     }
   }

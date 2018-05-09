@@ -21,7 +21,6 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { firebaseConfig } from '../config';
 import { LoginPage } from '../pages/login/login';
 import { AuthService } from '../services/auth.service';
-import { SignupPageModule } from '../pages/signup/signup.module';
 import { SignupPage } from '../pages/signup/signup';
 import { ProfilePage } from '../pages/profile/profile';
 
