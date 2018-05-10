@@ -12,7 +12,7 @@ import { ExercisesPage } from '../exercises/exercises';
 export class HomePage implements OnInit {
   
 
-  languageRadioResult: any = 2
+  public languageRadioResult: any = 2
   languageRadioOpen: boolean = true;
   //hypermediaCategorys: string;
   categorys: IexerciseCategory;

@@ -21,42 +21,67 @@ export class WorkoutMakerPage {
   categoryCheckboxResult: any[];
   categoryCheckboxOpen: boolean;
   hypermediaExercises: string
-  
-  constructor(public navCtrl: NavController,public restProvider: WgerProvider, public navParams: NavParams, public alertCtrl: AlertController) {
-    
+  fullWorkoutExercises: any[]
+  workoutMaked: string[]
+  workoutLength: number
+
+  constructor(public navCtrl: NavController, public restProvider: WgerProvider, public navParams: NavParams, public alertCtrl: AlertController) {
+
     let hypermediaCategorys: string;
-    
-    
-    this.restProvider.getMainContent().subscribe(result =>{
+
+
+    this.restProvider.getMainContent().subscribe(result => {
       hypermediaCategorys = result.exercisecategory
       this.hypermediaExercises = result.exercise
-      
+
       this.getCategorys(hypermediaCategorys);
-      
+
     })
   }
-  
+
   getExercises(link: string) {
-    for (var i = 1; i < 27; i++){
-      this.restProvider.getExercises(link+"/?page=" + i).subscribe(result => {
+    let workout = new Array()
+    for (var i = 1; i < 27; i++) {
+      this.restProvider.getExercises(link + "/?page=" + i).subscribe(result => {
         //debugger
-        for (let j in result.results){
+        for (let j in result.results) {
 
-          if(this.categoryCheckboxResult.find(x => x == result.results[j].category) ){
+          if (this.categoryCheckboxResult.find(x => x == result.results[j].category
+            && result.results[j].language == 2
+            && result.results[j].name != '')) {
 
-            console.log(result.results[j].name)
-            
+            workout.push(result.results[j].name)
+            this.fullWorkoutExercises = workout
+
           }
         }
       })
     }
   }
 
-  getCategorys(link: string) {
-    this.restProvider.getexerciseCategory(link).subscribe(result =>{
-      this.categorys = result
+  makeWorkout() {
+    let workout = new Array()
+    let num
 
-    
+    for (var i = 0; i < 10; i++) {
+
+      num = this.getRandomInt(50)
+
+      workout.push(this.fullWorkoutExercises[num])
+
+      this.workoutMaked = workout
+      console.log(this.workoutLength)
+
+    }
+  }
+
+  getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
+
+  getCategorys(link: string) {
+    this.restProvider.getexerciseCategory(link).subscribe(result => {
+      this.categorys = result
     })
   }
 
@@ -64,7 +89,7 @@ export class WorkoutMakerPage {
     let alert = this.alertCtrl.create();
     alert.setTitle('What do you want to train today?');
 
-    for (let i in this.categorys.results){
+    for (let i in this.categorys.results) {
       let categoryName = this.categorys.results[i].name
       let id = this.categorys.results[i].id
       alert.addInput({
@@ -73,7 +98,7 @@ export class WorkoutMakerPage {
         value: String(id),
       });
     }
-  
+
     alert.addButton('Cancel');
     alert.addButton({
       text: 'Make',
@@ -81,8 +106,9 @@ export class WorkoutMakerPage {
         console.log('Checkbox data:', data);
         this.categoryCheckboxOpen = false;
         this.categoryCheckboxResult = data;
-        console.log(data)
+
         this.getExercises(this.hypermediaExercises);
+        this.makeWorkout()
       }
     });
     alert.present();

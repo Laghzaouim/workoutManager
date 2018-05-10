@@ -10,41 +10,41 @@ import { ExerciseDetailsPage } from '../exercise-details/exercise-details';
 })
 export class ExercisesPage implements OnInit {
 
-  
+
   id_category: number
-  data:Iexercise
+  data: Iexercise
   //exerciseImage: IExerciseImage
   nameExercises: string[]
   id_exercises: number[]
   name_category: string
   languageId: number
   //exercisesImg : string[]
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: WgerProvider) {}
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: WgerProvider) { }
 
   ngOnInit(): void {
     let hypermediaExercises: string
     //let hypermediaExercisesImage: string
-    
+
 
     this.id_category = this.navParams.get('id_category')
     this.name_category = this.navParams.get('name_category')
     this.languageId = this.navParams.get('languageId')
-    console.log("language id: "+this.languageId)
+    console.log("language id: " + this.languageId)
     //debugger
     //console.log(this.name_category)
 
-    this.restProvider.getMainContent().subscribe(result =>{
+    this.restProvider.getMainContent().subscribe(result => {
       //debugger
       hypermediaExercises = result.exercise
       //hypermediaExercisesImage = result.exerciseimage
-      
+
 
       this.getExercises(hypermediaExercises);
-      
+
       //this.getImage(hypermediaExercisesImage)
 
-     }, err => console.log(err))
+    }, err => console.log(err))
 
   }
 
@@ -72,7 +72,7 @@ export class ExercisesPage implements OnInit {
   // }
   // }
 
-  getExercises(link:string) {
+  getExercises(link: string) {
     //debugger
     var _name = new Array()
     var _id = new Array()
@@ -83,15 +83,15 @@ export class ExercisesPage implements OnInit {
   }
 
   private getExerciseData(link: string, name: any[], id: any[]) {
-    for (var i = 1; i < 27; i++){
+    for (var i = 1; i < 27; i++) {
 
-      this.restProvider.getExercises(link+"/?page=" + i).subscribe(result => {
-        
+      this.restProvider.getExercises(link + "/?page=" + i).subscribe(result => {
+
         this.getPages(result, name, id);
-        
+
         this.nameExercises = name;
         this.id_exercises = id;
-        
+
         console.log("length exercises: " + this.nameExercises.length)
       });
     }
@@ -111,24 +111,24 @@ export class ExercisesPage implements OnInit {
     }
   }
 
-  getLanguage(link: string){
+  getLanguage(link: string) {
     this.restProvider.getLanguage(link).subscribe(result => {
       //debugger
     })
   }
 
-  itemSelected(name:any){
-    let index:number = this.nameExercises.findIndex(y => Object.is(name, y));
+  itemSelected(name: any) {
+    let index: number = this.nameExercises.findIndex(y => Object.is(name, y));
     let id_ex
 
-   for(var i=0; i< this.id_exercises.length; i++) {
-     if( i ==  index ) {
-       console.log(this.id_exercises[i]);
-       id_ex = this.id_exercises[i]
+    for (var i = 0; i < this.id_exercises.length; i++) {
+      if (i == index) {
+        console.log(this.id_exercises[i]);
+        id_ex = this.id_exercises[i]
       }
     }
 
-    this.navCtrl.push(ExerciseDetailsPage,{
+    this.navCtrl.push(ExerciseDetailsPage, {
       id_ex,
       name
     })

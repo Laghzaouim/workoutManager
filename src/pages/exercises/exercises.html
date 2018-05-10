@@ -18,11 +18,6 @@
 
     <ion-list no-lines *ngIf="data">
         <ion-item *ngFor="let name of nameExercises" (click)="itemSelected(name)">
-          <!--
-          <ion-thumbnail item-start >
-            <img src="{{exercisesImg}}">
-            </ion-thumbnail>
-          -->
             <button ion-item >
               {{name}}
             </button>    
