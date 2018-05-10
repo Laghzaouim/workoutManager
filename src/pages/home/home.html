@@ -4,12 +4,14 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
- 
-<ion-list *ngIf="categorys">
+<ion-content  padding>
+  <div *ngIf="categorys">
+  <ion-list >
     <button ion-item *ngFor="let category of categorys.results" (click)="itemSelected(category.id, category.name)">
-        {{category.name}}
+      {{category.name}}
     </button>  
   </ion-list>
+  <button ion-button full round (tap)="showLanguages()">Choose language</button>
+</div>
 </ion-content>
 

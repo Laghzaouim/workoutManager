@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Iexercise, WgerProvider, IExerciseImage } from '../../providers/wger/wger';
+import { Iexercise, WgerProvider } from '../../providers/wger/wger';
 import { ExerciseDetailsPage } from '../exercise-details/exercise-details';
 
 @IonicPage()
@@ -13,29 +13,35 @@ export class ExercisesPage implements OnInit {
   
   id_category: number
   data:Iexercise
-  exerciseImage: IExerciseImage
+  //exerciseImage: IExerciseImage
   nameExercises: string[]
   id_exercises: number[]
   name_category: string
+  languageId: number
   //exercisesImg : string[]
   
   constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: WgerProvider) {}
 
   ngOnInit(): void {
     let hypermediaExercises: string
-    let hypermediaExercisesImage: string
+    //let hypermediaExercisesImage: string
+    
 
     this.id_category = this.navParams.get('id_category')
     this.name_category = this.navParams.get('name_category')
+    this.languageId = this.navParams.get('languageId')
+    console.log("language id: "+this.languageId)
     //debugger
-    console.log(this.name_category)
+    //console.log(this.name_category)
 
     this.restProvider.getMainContent().subscribe(result =>{
       //debugger
       hypermediaExercises = result.exercise
-      hypermediaExercisesImage = result.exerciseimage
+      //hypermediaExercisesImage = result.exerciseimage
+      
 
       this.getExercises(hypermediaExercises);
+      
       //this.getImage(hypermediaExercisesImage)
 
      }, err => console.log(err))
@@ -95,13 +101,20 @@ export class ExercisesPage implements OnInit {
     //debugger
     for (let i in result.results) {
       if (result.results[i].category == this.id_category
-        && result.results[i].name != '') {
+        && result.results[i].name != ''
+        && result.results[i].language == this.languageId) {
         //debugger
         this.data = result;
         name.push(result.results[i].name);
         id.push(result.results[i].id)
       }
     }
+  }
+
+  getLanguage(link: string){
+    this.restProvider.getLanguage(link).subscribe(result => {
+      //debugger
+    })
   }
 
   itemSelected(name:any){

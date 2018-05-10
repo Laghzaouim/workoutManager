@@ -67,6 +67,14 @@ export class WgerProvider {
 
   }
 
+  getLanguage(hypermedia: string):Observable<ILanguage> {
+
+    const headers = new HttpHeaders().set('Authorization', 'Token ' + this.token);
+
+    return this.http.get<ILanguage>(hypermedia , {headers});   
+
+  }
+
 
 }
 
@@ -157,28 +165,42 @@ export interface IExerciseImage {
 }
 
 //equipment
-interface IEquipment {
+export interface IEquipment {
   count: number;
   next?: any;
   previous?: any;
   results: IEquipmentIn[];
 }
 
-interface IEquipmentIn {
+export interface IEquipmentIn {
   id: number;
   name: string;
 }
 
 //muscles
-interface IMuscles {
+export interface IMuscles {
   count: number;
   next?: any;
   previous?: any;
   results: IMusclesIn[];
 }
 
-interface IMusclesIn {
+export interface IMusclesIn {
   id: number;
   name: string;
   is_front: boolean;
+}
+
+//language
+export interface ILanguage {
+  count: number;
+  next?: any;
+  previous?: any;
+  results: ILanguageIn[];
+}
+
+export interface ILanguageIn {
+  id: number;
+  short_name: string;
+  full_name: string;
 }
