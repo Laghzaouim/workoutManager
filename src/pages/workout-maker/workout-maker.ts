@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+
 
 /**
  * Generated class for the WorkoutMakerPage page.
@@ -15,11 +16,38 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class WorkoutMakerPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  testCheckboxResult: any;
+  testCheckboxOpen: boolean;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad WorkoutMakerPage');
+  showCategory() {
+    let alert = this.alertCtrl.create();
+    alert.setTitle('What do you want to train today?');
+
+    alert.addInput({
+      type: 'checkbox',
+      label: 'Alderaan',
+      value: 'value1',
+      checked: true
+    });
+
+    alert.addInput({
+      type: 'checkbox',
+      label: 'Bespin',
+      value: 'value2'
+    });
+
+    alert.addButton('Cancel');
+    alert.addButton({
+      text: 'Make',
+      handler: data => {
+        console.log('Checkbox data:', data);
+        this.testCheckboxOpen = false;
+        this.testCheckboxResult = data;
+      }
+    });
+    alert.present();
   }
 
 }
