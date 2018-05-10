@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
-import { AboutPage } from '../about/about';
 import { HomePage } from '../home/home';
 import { ProfilePage } from '../profile/profile';
+import { WorkoutMakerPage } from '../workout-maker/workout-maker';
 
 @Component({
   templateUrl: 'tabs.html'
@@ -10,7 +10,7 @@ import { ProfilePage } from '../profile/profile';
 export class TabsPage {
 
   tab1Root = HomePage;
-  tab2Root = AboutPage;
+  tab2Root = WorkoutMakerPage;
   tab3Root = ProfilePage;
 
   constructor() {

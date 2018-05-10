@@ -21,6 +21,8 @@ export class MyApp {
     statusBar: StatusBar, 
     splashScreen: SplashScreen,
     private auth: AuthService) {
+      
+      this.LoginUserSession();
     
       platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -29,7 +31,6 @@ export class MyApp {
       splashScreen.hide();
     });
 
-    this.LoginUserSession();
 
   }
 
