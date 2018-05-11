@@ -19,8 +19,8 @@
     then some variation is recommended.</p>
   <p>Workout Maker helps you to make everytime a different workout for every session.</p>
   <button ion-button full round (tap)="showCategory()">Make a Workout</button>
-  <ion-list no-lines *ngIf="workoutMaked" (click)="itemSelected(item)">
-    <ion-item *ngFor="let item of workoutMaked">
+  <ion-list no-lines *ngIf="workoutMaked" >
+    <ion-item *ngFor="let item of workoutMaked" (click)="itemSelected(item)">
         <button ion-item>
           {{item}}
         </button>

@@ -25,12 +25,12 @@ export class ExerciseDetailsPage implements OnInit {
   equipmentName: string = ""
   muscles: number[]
   musclesName: string = ""
-  imgURL : string
+  imgURL: string
 
-  data:Iexercise
+  data: Iexercise
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private restProvider: WgerProvider) {}
-  
+  constructor(public navCtrl: NavController, public navParams: NavParams, private restProvider: WgerProvider) { }
+
   ngOnInit(): void {
     let hypermediaExercises: string
     let hypermediaEquipment: string
@@ -43,7 +43,7 @@ export class ExerciseDetailsPage implements OnInit {
     console.log(this.id_exercise)
     console.log(this.name_exercises)
 
-    this.restProvider.getMainContent().subscribe(result =>{
+    this.restProvider.getMainContent().subscribe(result => {
       hypermediaExercises = result.exercise
       hypermediaEquipment = result.equipment
       hypermediaMuscles = result.muscle
@@ -53,22 +53,22 @@ export class ExerciseDetailsPage implements OnInit {
       this.getEqipment(hypermediaEquipment)
       this.getMuscles(hypermediaMuscles)
       this.getImage(hypermediaImg)
-     })
+    })
 
-     
+
   }
 
-  private getExercise(link:string){
+  private getExercise(link: string) {
 
-    for (var i = 1; i < 27; i++){
+    for (var i = 1; i < 27; i++) {
 
-      this.restProvider.getExercises(link+"/?page=" + i).subscribe(result => {
+      this.restProvider.getExercises(link + "/?page=" + i).subscribe(result => {
 
         for (let i in result.results) {
           if (result.results[i].id == this.id_exercise) {
             //debugger
             this.description = result.results[i].description;
-            this.creationDate =  "Created: " + result.results[i].creation_date;
+            this.creationDate = "Created: " + result.results[i].creation_date;
             this.equipments = result.results[i].equipment
             this.muscles = result.results[i].muscles
 
@@ -82,43 +82,41 @@ export class ExerciseDetailsPage implements OnInit {
     }
   }
 
-  private getEqipment(link:string){
+  private getEqipment(link: string) {
 
-    this.restProvider.getEquipment(link).subscribe(result =>{
+    this.restProvider.getEquipment(link).subscribe(result => {
 
-      for (let i in result.results){
-        for(let j in this.equipments){
-        if(result.results[i].id == this.equipments[j]){
+      for (let i in result.results) {
+        if (this.equipments.indexOf(result.results[i].id)) {
           console.log(result.results[i].name)
-          
+
           this.equipmentName += result.results[i].name + " "
-        }
         }
       }
 
     })
   }
 
-  private getMuscles(link:string){
-     this.restProvider.getMuscles(link).subscribe(result=>{
-       //debugger
+  private getMuscles(link: string) {
+    this.restProvider.getMuscles(link).subscribe(result => {
+      //debugger
 
-       for(let i in result.results){
-         for(let j in this.muscles){
-         if(result.results[i].id == this.muscles[j]){
-           this.musclesName += result.results[i].name + " "
-           console.log(this.musclesName)
-         }
+      for (let i in result.results) {
+
+        if (this.muscles.indexOf(result.results[i].id)) {
+          this.musclesName += result.results[i].name + "\n"
+          console.log(this.musclesName)
         }
-       }
-     })
+
+      }
+    })
   }
 
-  private getImage(link: string){
-    this.restProvider.getExercisesImege(link).subscribe(result =>{
+  private getImage(link: string) {
+    this.restProvider.getExercisesImege(link).subscribe(result => {
       //debugger
-      for(let i in result.results){
-        if(result.results[i].exercise == this.id_exercise){
+      for (let i in result.results) {
+        if (result.results[i].exercise == this.id_exercise) {
           this.imgURL = result.results[i].image
           console.log("image url: " + this.imgURL)
         }
