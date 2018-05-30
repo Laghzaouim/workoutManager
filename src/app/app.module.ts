@@ -9,7 +9,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { WgerProvider } from '../providers/wger/wger';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ExercisesPage } from '../pages/exercises/exercises';
 import { ExerciseDetailsPage } from '../pages/exercise-details/exercise-details';
 
@@ -22,6 +22,7 @@ import { AuthService } from '../services/auth.service';
 import { SignupPage } from '../pages/signup/signup';
 import { ProfilePage } from '../pages/profile/profile';
 import { WorkoutMakerPage } from '../pages/workout-maker/workout-maker';
+import { InterceptorModule } from '../providers/wger/httpsRequestInterceptor';
 
 
 
@@ -61,7 +62,8 @@ import { WorkoutMakerPage } from '../pages/workout-maker/workout-maker';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     WgerProvider,
     AuthService,
-    AngularFireAuth
+    AngularFireAuth,
+    InterceptorModule
   ]
 })
 export class AppModule {}

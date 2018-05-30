@@ -1,83 +1,44 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {Observable} from "rxjs/Observable"
+import { Observable } from "rxjs/Observable"
 
-/*
-  Generated class for the WgerProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class WgerProvider {
 
   apiUrl = 'https://wger.de/api/v2/';
-  token = 'c9790d783821eb9c4c7695ae57d088224a453d7c';
-  
-  constructor(public http: HttpClient) {
-    console.log('Hello WgerProvider Provider');
-    
+
+  constructor(public http: HttpClient) { }
+
+  getMainContent(): Observable<Iwger> {
+    return this.http.get<Iwger>(this.apiUrl);
   }
 
-  getMainContent():Observable<Iwger>{
-
-    const headers = new HttpHeaders().set('Authorization', 'Token ' + this.token);
-
-    return this.http.get<Iwger>(this.apiUrl, {headers});
-
+  getexerciseCategory(hypermedia: string): Observable<IexerciseCategory> {
+    return this.http.get<IexerciseCategory>(hypermedia);
   }
 
-  getexerciseCategory(hypermedia: string):Observable<IexerciseCategory> {
-
-    const headers = new HttpHeaders().set('Authorization', 'Token ' + this.token);
-
-    return this.http.get<IexerciseCategory>(hypermedia, {headers});   
-
+  getExercises(hypermedia: string): Observable<Iexercise> {
+    return this.http.get<Iexercise>(hypermedia);
   }
 
-  getExercises(hypermedia: string):Observable<Iexercise> {
-
-    const headers = new HttpHeaders().set('Authorization', 'Token ' + this.token);
-
-    return this.http.get<Iexercise>(hypermedia , {headers});   
-
+  getExercisesImege(hypermedia: string): Observable<IExerciseImage> {
+    return this.http.get<IExerciseImage>(hypermedia);
   }
 
-  getExercisesImege(hypermedia: string):Observable<IExerciseImage> {
-
-    const headers = new HttpHeaders().set('Authorization', 'Token ' + this.token);
-
-    return this.http.get<IExerciseImage>(hypermedia , {headers});   
-
+  getEquipment(hypermedia: string): Observable<IEquipment> {
+    return this.http.get<IEquipment>(hypermedia);
   }
 
-  getEquipment(hypermedia: string):Observable<IEquipment> {
-
-    const headers = new HttpHeaders().set('Authorization', 'Token ' + this.token);
-
-    return this.http.get<IEquipment>(hypermedia , {headers});   
-
+  getMuscles(hypermedia: string): Observable<IMuscles> {
+    return this.http.get<IMuscles>(hypermedia);
   }
 
-  getMuscles(hypermedia: string):Observable<IMuscles> {
-
-    const headers = new HttpHeaders().set('Authorization', 'Token ' + this.token);
-
-    return this.http.get<IMuscles>(hypermedia , {headers});   
-
+  getLanguage(hypermedia: string): Observable<ILanguage> {
+    return this.http.get<ILanguage>(hypermedia);
   }
-
-  getLanguage(hypermedia: string):Observable<ILanguage> {
-
-    const headers = new HttpHeaders().set('Authorization', 'Token ' + this.token);
-
-    return this.http.get<ILanguage>(hypermedia , {headers});   
-
-  }
-
-
 }
 
+//general interface
 export interface Iwger {
   workout: string;
   workoutsession: string;
