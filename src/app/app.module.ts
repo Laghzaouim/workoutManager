@@ -9,7 +9,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { WgerProvider } from '../providers/wger/wger';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ExercisesPage } from '../pages/exercises/exercises';
 import { ExerciseDetailsPage } from '../pages/exercise-details/exercise-details';
 
