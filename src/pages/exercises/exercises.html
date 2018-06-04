@@ -13,14 +13,12 @@
 </ion-header>
 
 <ion-content padding>
-
-    
-
-    <ion-list no-lines *ngIf="data">
-        <ion-item *ngFor="let item of data.results" (click)="itemSelected(name)">
-            <button ion-item >
-              {{item.name}}
-            </button>    
+      <ion-list no-lines *ngIf="data">
+        <ion-item *ngFor="let item of data.results"  (click)="itemSelected(item.name, item.id)">
+            <h2 >{{item.name}}</h2>
+            <p *ngIf="item.license_author">Author: {{item.license_author}}</p>
+            <p *ngIf="item.creation_date">Creation date: {{item.creation_date}}</p>
+            <button ion-button clear item-end >View</button>
         </ion-item>
       </ion-list>
   </ion-content>

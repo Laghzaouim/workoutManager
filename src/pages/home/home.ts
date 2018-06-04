@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { IexerciseCategory, WgerProvider, ILanguage } from '../../providers/wger/wger'
 import { ExercisesPage } from '../exercises/exercises';
-import { AsyncPipe } from '@angular/common';
-
 
 
 @Component({
