@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { WgerProvider, IexerciseCategory } from '../../providers/wger/wger';
 import { ExerciseDetailsPage } from '../exercise-details/exercise-details';
@@ -16,8 +16,8 @@ import { ExerciseDetailsPage } from '../exercise-details/exercise-details';
   selector: 'page-workout-maker',
   templateUrl: 'workout-maker.html',
 })
-export class WorkoutMakerPage {
-
+export class WorkoutMakerPage implements OnInit {
+  
   loading: any;
   categorys: IexerciseCategory;
   categoryCheckboxResult: any[];
@@ -28,28 +28,31 @@ export class WorkoutMakerPage {
   workoutLength: number
   id_exercises: number[]
   nameExercises: string[]
-
+  
   constructor(
     public navCtrl: NavController, 
     public restProvider: WgerProvider, 
     public navParams: NavParams, 
     public alertCtrl: AlertController,
-    private loadingCtrl: LoadingController) {
-
-    let hypermediaCategorys: string;
+    private loadingCtrl: LoadingController) {}
 
 
-    this.restProvider.getMainContent().subscribe(result => {
-      hypermediaCategorys = result.exercisecategory
-      this.hypermediaExercises = result.exercise
-
-      this.getCategorys(hypermediaCategorys);
-
-    })
-  }
-
-  getExercises(link: string) {
-    let workout = new Array()
+    ngOnInit(): void {
+    
+      let hypermediaCategorys: string;
+      
+      
+      this.restProvider.getMainContent().subscribe(result => {
+        hypermediaCategorys = result.exercisecategory
+        this.hypermediaExercises = result.exercise
+        
+        this.getCategorys(hypermediaCategorys);
+        
+      })
+    }
+    
+    getExercises(link: string) {
+      let workout = new Array()
     let id = new Array()
     let name = new Array()
     for (var i = 1; i < 27; i++) {
@@ -92,8 +95,6 @@ export class WorkoutMakerPage {
 
     }
   }
-
-  
 
   getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
