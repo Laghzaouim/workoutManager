@@ -20,6 +20,9 @@ export class WgerProvider {
   getExercises(hypermedia: string): Observable<Iexercise> {
     return this.http.get<Iexercise>(hypermedia);
   }
+  getExercisesDetails(hypermedia: string): Observable<IexerciseIn> {
+    return this.http.get<IexerciseIn>(hypermedia);
+  }
 
   getExercisesImege(hypermedia: string): Observable<IExerciseImage> {
     return this.http.get<IExerciseImage>(hypermedia);
@@ -27,6 +30,9 @@ export class WgerProvider {
 
   getEquipment(hypermedia: string): Observable<IEquipment> {
     return this.http.get<IEquipment>(hypermedia);
+  }
+  getEquipmentDetails(hypermedia: string): Observable<IEquipmentIn> {
+    return this.http.get<IEquipmentIn>(hypermedia);
   }
 
   getMuscles(hypermedia: string): Observable<IMuscles> {

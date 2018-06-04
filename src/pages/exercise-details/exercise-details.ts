@@ -49,37 +49,23 @@ export class ExerciseDetailsPage implements OnInit {
       hypermediaMuscles = result.muscle
       hypermediaImg = result.exerciseimage
 
-      this.getExercise(hypermediaExercises);
-      this.getEqipment(hypermediaEquipment)
-      this.getMuscles(hypermediaMuscles)
+
+
+      this.restProvider.getExercisesDetails(hypermediaExercises + this.id_exercise).subscribe(async result => {
+        this.description = await result.description
+        this.equipments = await result.equipment
+        this.muscles = await result.muscles
+
+        console.log(result.description)
+
+        this.getEqipment(hypermediaEquipment)
+        this.getMuscles(hypermediaMuscles)
+      })
+
       this.getImage(hypermediaImg)
-    })
+    }, err => console.log(err))
 
 
-  }
-
-  private getExercise(link: string) {
-
-    for (var i = 1; i < 27; i++) {
-
-      this.restProvider.getExercises(link + "/?page=" + i).subscribe(result => {
-
-        for (let i in result.results) {
-          if (result.results[i].id == this.id_exercise) {
-            //debugger
-            this.description = result.results[i].description;
-            this.creationDate = "Created: " + result.results[i].creation_date;
-            this.equipments = result.results[i].equipment
-            this.muscles = result.results[i].muscles
-
-            console.log("description " + this.description);
-            console.log(this.creationDate)
-            console.log("equipments " + this.equipments)
-            console.log("muscles " + this.muscles)
-          }
-        }
-      });
-    }
   }
 
   private getEqipment(link: string) {
