@@ -17,9 +17,9 @@
     
 
     <ion-list no-lines *ngIf="data">
-        <ion-item *ngFor="let name of nameExercises" (click)="itemSelected(name)">
+        <ion-item *ngFor="let item of data.results" (click)="itemSelected(name)">
             <button ion-item >
-              {{name}}
+              {{item.name}}
             </button>    
         </ion-item>
       </ion-list>

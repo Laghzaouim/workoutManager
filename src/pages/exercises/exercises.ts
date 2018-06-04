@@ -31,16 +31,26 @@ export class ExercisesPage implements OnInit {
     this.name_category = this.navParams.get('name_category')
     this.languageId = this.navParams.get('languageId')
     console.log("language id: " + this.languageId)
-    //debugger
-    //console.log(this.name_category)
+    console.log(this.name_category)
+    console.log(this.id_category)
 
     this.restProvider.getMainContent().subscribe(result => {
       //debugger
       hypermediaExercises = result.exercise
+     // hypermediaExerciseImages = result.exerciseimage
+
+      this.restProvider.getExercises(hypermediaExercises + "?limit=520" + "&category=" + this.id_category + "&language=" + this.languageId).subscribe(result => {
+        console.log(result)
+        this.data = result
+        // })
+        //console.log(result)
+      })
+
+     // this.restProvider.getExercisesImege(hypermediaExerciseImages)
       //hypermediaExercisesImage = result.exerciseimage
 
 
-      this.getExercises(hypermediaExercises);
+      //this.getExercises(hypermediaExercises);
 
       //this.getImage(hypermediaExercisesImage)
 
